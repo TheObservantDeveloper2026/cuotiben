@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>错题本</title>
+<style>
+  :root{
+    --bg:#f4f5fb;
+    --card:#ffffff;
+    --ink:#1f2335;
+    --sub:#6b7184;
+    --line:#e6e8f0;
+    --brand:#5b6cff;
+    --brand-2:#7c8bff;
+    --brand-soft:#eef0ff;
+    --ok:#22b07d;
+    --warn:#ff7a45;
+    --danger:#ff4d4f;
+    --shadow:0 6px 24px rgba(31,35,53,.08);
+    --shadow-lg:0 16px 48px rgba(31,35,53,.14);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    min-height:100vh;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:24px 20px 80px}
+  /* 顶栏 */
+  header{
+    display:flex;align-items:center;gap:14px;
+    padding:8px 4px 22px;
+  }
+  .logo{
+    width:42px;height:42px;border-radius:12px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:22px;font-weight:700;
+    box-shadow:0 6px 16px rgba(91,108,255,.35);
+  }
+  h1{font-size:22px;margin:0;letter-spacing:.5px}
+  .sub{font-size:12px;color:var(--sub);margin-top:2px}
+  .top-actions{margin-left:auto;display:flex;gap:8px}
+  .btn{
+    border:1px solid var(--line);background:var(--card);color:var(--ink);
+    padding:9px 14px;border-radius:10px;cursor:pointer;font-size:14px;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:all .15s;
+  }
+  .btn:hover{border-color:var(--brand);color:var(--brand)}
+  .btn.primary{
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    color:#fff;border-color:transparent;
+    box-shadow:0 4px 12px rgba(91,108,255,.3);
+  }
+  .btn.primary:hover{filter:brightness(1.05);color:#fff}
+  .btn.danger{color:var(--danger);border-color:#ffd0d0}
+  .btn.danger:hover{background:#fff1f1}
+  .btn.ghost{border-color:transparent;background:transparent}
+  .btn.sm{padding:6px 10px;font-size:13px}
+
+  /* 类型卡片 */
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--card);border-radius:var(--radius);
+    padding:20px;box-shadow:var(--shadow);
+    cursor:pointer;position:relative;
+    transition:transform .15s,box-shadow .15s;
+    border:1px solid transparent;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--brand-soft)}
+  .card .icon{
+    width:46px;height:46px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:24px;margin-bottom:12px;
+    background:var(--brand-soft);
+  }
+  .card h3{margin:0 0 4px;font-size:17px}
+  .card .meta{font-size:12px;color:var(--sub)}
+  .card .count{
+    position:absolute;top:16px;right:16px;
+    background:var(--brand-soft);color:var(--brand);
+    font-size:12px;padding:3px 10px;border-radius:999px;font-weight:600;
+  }
+  .card .del{
+    position:absolute;bottom:14px;right:14px;
+    opacity:0;transition:opacity .15s;
+  }
+  .card:hover .del{opacity:1}
+
+  /* 空状态 */
+  .empty{
+    text-align:center;padding:60px 20px;color:var(--sub);
+  }
+  .empty .big{font-size:48px;margin-bottom:10px}
+
+  /* 面包屑 */
+  .crumbs{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--sub);margin-bottom:16px;flex-wrap:wrap}
+  .crumbs a{cursor:pointer;color:var(--sub);text-decoration:none}
+  .crumbs a:hover{color:var(--brand)}
+  .crumbs .sep{opacity:.5}
+
+  /* 错题列表 */
+  .entry{
+    background:var(--card);border-radius:var(--radius);
+    padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow);
+    border:1px solid transparent;
+  }
+  .entry:hover{border-color:var(--brand-soft)}
+  .entry .head{
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:12px;flex-wrap:wrap;
+  }
+  .date-tag{
+    font-size:12px;color:var(--brand);background:var(--brand-soft);
+    padding:3px 10px;border-radius:999px;font-weight:600;
+  }
+  .entry .actions{margin-left:auto;display:flex;gap:6px}
+  .entry h4{margin:0 0 12px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .entry .label{
+    font-size:12px;color:var(--sub);font-weight:600;
+    text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .entry .label .dot{width:8px;height:8px;border-radius:50%}
+  .entry .blk{margin-bottom:14px}
+  .entry .blk:last-child{margin-bottom:0}
+  .entry .txt{white-space:pre-wrap;word-break:break-word;font-size:14.5px}
+  .entry img{max-width:100%;border-radius:10px;border:1px solid var(--line);display:block;margin-top:6px;cursor:zoom-in}
+  .field-q .dot{background:var(--danger)}
+  .field-a .dot{background:var(--ok)}
+  .field-r .dot{background:var(--warn)}
+
+  /* 模态框 */
+  .mask{
+    position:fixed;inset:0;background:rgba(20,22,40,.45);
+    display:none;align-items:center;justify-content:center;
+    z-index:100;padding:20px;backdrop-filter:blur(4px);
+  }
+  .mask.show{display:flex}
+  .modal{
+    background:var(--card);border-radius:20px;
+    width:100%;max-width:560px;max-height:90vh;
+    overflow:auto;box-shadow:var(--shadow-lg);
+    animation:pop .2s ease;
+  }
+  @keyframes pop{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
+  .modal .mhead{
+    padding:18px 22px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;
+  }
+  .modal .mhead h3{margin:0;font-size:17px}
+  .modal .mbody{padding:22px}
+  .modal .mfoot{
+    padding:16px 22px;border-top:1px solid var(--line);
+    display:flex;justify-content:flex-end;gap:10px;
+    position:sticky;bottom:0;background:var(--card);
+  }
+  .form-row{margin-bottom:16px}
+  .form-row label{
+    display:block;font-size:13px;font-weight:600;
+    margin-bottom:7px;color:var(--ink);
+  }
+  .form-row label .req{color:var(--danger)}
+  .input,.textarea{
+    width:100%;border:1px solid var(--line);border-radius:10px;
+    padding:10px 12px;font-size:14px;font-family:inherit;
+    background:#fbfbfd;color:var(--ink);
+    transition:border-color .15s;
+  }
+  .input:focus,.textarea:focus{outline:none;border-color:var(--brand);background:#fff}
+  .textarea{resize:vertical;min-height:90px}
+  .seg{
+    display:inline-flex;background:#f0f1f6;border-radius:10px;padding:3px;gap:2px;
+  }
+  .seg button{
+    border:none;background:transparent;padding:7px 14px;
+    border-radius:8px;cursor:pointer;font-size:13px;color:var(--sub);
+    font-family:inherit;
+  }
+  .seg button.on{background:var(--card);color:var(--brand);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .img-pick{
+    border:2px dashed var(--line);border-radius:12px;
+    padding:18px;text-align:center;color:var(--sub);
+    cursor:pointer;transition:all .15s;font-size:13px;
+  }
+  .img-pick:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
+  .img-pick input{display:none}
+  .preview-img{max-width:100%;max-height:200px;border-radius:10px;border:1px solid var(--line);margin-top:10px}
+  .preview-wrap{position:relative;display:inline-block}
+  .preview-wrap .rm{
+    position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);color:#fff;
+    border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  /* 颜色选择 */
+  .colors{display:flex;gap:8px;flex-wrap:wrap}
+  .colors .c{
+    width:34px;height:34px;border-radius:50%;cursor:pointer;
+    border:3px solid transparent;transition:transform .1s;
+    display:flex;align-items:center;justify-content:center;font-size:16px;
+  }
+  .colors .c.on{border-color:var(--ink);transform:scale(1.08)}
+
+  /* 搜索 */
+  .toolbar{display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
+  .search{
+    flex:1;min-width:200px;position:relative;
+  }
+  .search input{padding-left:36px}
+  .search .si{
+    position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    color:var(--sub);font-size:14px;pointer-events:none;
+  }
+
+  /* 图片预览大图 */
+  .lightbox{
+    position:fixed;inset:0;background:rgba(0,0,0,.85);
+    display:none;align-items:center;justify-content:center;
+    z-index:200;padding:24px;cursor:zoom-out;
+  }
+  .lightbox.show{display:flex}
+  .lightbox img{max-width:100%;max-height:100%;border-radius:8px}
+
+  /* toast */
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:#1f2335;color:#fff;padding:10px 18px;border-radius:10px;
+    font-size:14px;opacity:0;transition:all .25s;z-index:300;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* 统计条 */
+  .stats{
+    display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;
+  }
+  .stat{
+    background:var(--card);border-radius:12px;padding:12px 16px;
+    box-shadow:var(--shadow);flex:1;min-width:120px;
+  }
+  .stat .n{font-size:22px;font-weight:700;color:var(--brand)}
+  .stat .t{font-size:12px;color:var(--sub)}
+
+  @media(max-width:600px){
+    .wrap{padding:16px 14px 60px}
+    .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+    .card{padding:16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">错</div>
+    <div>
+      <h1>错题本</h1>
+      <div class="sub">记录每一次错误 · 只为下次全对</div>
+    </div>
+    <div class="top-actions" id="topActions"></div>
+  </header>
+
+  <div id="view"></div>
+</div>
+
+<!-- 模态框容器 -->
+<div class="mask" id="mask">
+  <div class="modal" id="modal"></div>
+</div>
+
+<!-- 图片预览 -->
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt="预览"></div>
+
+<!-- toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ======================= 数据层 ======================= */
+const DB = {
+  key:'cuotiben_v1',
+  load(){
+    try{
+      const raw = localStorage.getItem(this.key);
+      if(!raw) return {categories:[],entries:{}};
+      const d = JSON.parse(raw);
+      d.categories = d.categories||[];
+      d.entries = d.entries||{};
+      return d;
+    }catch(e){ return {categories:[],entries:{}}; }
+  },
+  save(d){ localStorage.setItem(this.key, JSON.stringify(d)); },
+  get cats(){ return this.load().categories; },
+  entries(cid){ return this.load().entries[cid]||[]; },
+  addCat(name,color,emoji){
+    const d = this.load();
+    const c = {id:'c'+Date.now()+Math.random().toString(36).slice(2,6),name,color,emoji,createdAt:new Date().toISOString()};
+    d.categories.push(c);
+    d.entries[c.id] = [];
+    this.save(d);
+    return c;
+  },
+  delCat(cid){
+    const d = this.load();
+    d.categories = d.categories.filter(c=>c.id!==cid);
+    delete d.entries[cid];
+    this.save(d);
+  },
+  addEntry(cid,e){
+    const d = this.load();
+    if(!d.entries[cid]) d.entries[cid]=[];
+    d.entries[cid].unshift(e);
+    this.save(d);
+  },
+  updEntry(cid,eid,patch){
+    const d = this.load();
+    const arr = d.entries[cid]||[];
+    const i = arr.findIndex(x=>x.id===eid);
+    if(i>=0){ arr[i]={...arr[i],...patch}; this.save(d); }
+  },
+  delEntry(cid,eid){
+    const d = this.load();
+    d.entries[cid] = (d.entries[cid]||[]).filter(x=>x.id!==eid);
+    this.save(d);
+  },
+  searchEntries(cid, kw){
+    const list = this.entries(cid);
+    if(!kw) return list;
+    kw = kw.toLowerCase();
+    return list.filter(e =>
+      (e.question||'').toLowerCase().includes(kw) ||
+      (e.answer||'').toLowerCase().includes(kw) ||
+      (e.analysis||'').toLowerCase().includes(kw) ||
+      (e.date||'').includes(kw)
+    );
+  }
+};
+
+/* ======================= 工具 ======================= */
+const $ = s => document.querySelector(s);
+const uid = ()=>'e'+Date.now()+Math.random().toString(36).slice(2,6);
+const today = ()=>{ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
+const fmtDate = iso=>{ if(!iso) return ''; const d=new Date(iso); if(isNaN(d)) return iso; const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
+const esc = s => (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1800); }
+
+const COLORS = [
+  {c:'#5b6cff',e:'📘'},{c:'#22b07d',e:'📗'},{c:'#ff7a45',e:'📙'},
+  {c:'#a855f7',e:'📔'},{c:'#ec4899',e:'📕'},{c:'#0ea5e9',e:'📓'},
+  {c:'#f59e0b',e:'📚'},{c:'#14b8a6',e:'✏️'}
+];
+
+/* ======================= 图片处理 ======================= */
+function fileToBase64(file){
+  return new Promise((res,rej)=>{
+    const r = new FileReader();
+    r.onload = ()=>res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+// 压缩图片避免 localStorage 爆掉
+function compressImage(file, maxW=1280, qlt=0.82){
+  return new Promise((res,rej)=>{
+    const r = new FileReader();
+    r.onload = ()=>{
+      const img = new Image();
+      img.onload = ()=>{
+        let {width:w,height:h} = img;
+        if(w>maxW){ h = h*maxW/w; w = maxW; }
+        const cv = document.createElement('canvas');
+        cv.width=w; cv.height=h;
+        const ctx = cv.getContext('2d');
+        ctx.drawImage(img,0,0,w,h);
+        res(cv.toDataURL('image/jpeg',qlt));
+      };
+      img.onerror = rej;
+      img.src = r.result;
+    };
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+/* ======================= 视图 ======================= */
+let curCat = null;
+let curKw = '';
+
+function render(){
+  const v = $('#view');
+  const ta = $('#topActions');
+  if(curCat){
+    renderCategory(v, ta);
+  }else{
+    renderHome(v, ta);
+  }
+}
+
+/* 首页 */
+function renderHome(v, ta){
+  const cats = DB.cats;
+  ta.innerHTML = `<button class="btn" onclick="exportAll()">导出</button>
+    <button class="btn primary" onclick="newCatModal()">+ 新建类型</button>`;
+  let total = 0;
+  cats.forEach(c=>total += DB.entries(c.id).length);
+  if(cats.length===0){
+    v.innerHTML = `<div class="empty">
+      <div class="big">📝</div>
+      <div style="font-size:16px;margin-bottom:6px;color:var(--ink)">还没有任何错题类型</div>
+      <div>点击右上角「+ 新建类型」开始，例如：数学、英语、物理……</div>
+    </div>`;
+    return;
+  }
+  v.innerHTML = `
+    <div class="stats">
+      <div class="stat"><div class="n">${cats.length}</div><div class="t">类型数量</div></div>
+      <div class="stat"><div class="n">${total}</div><div class="t">错题总数</div></div>
+    </div>
+    <div class="grid">
+      ${cats.map(c=>{
+        const n = DB.entries(c.id).length;
+        return `<div class="card" onclick="enterCat('${c.id}')">
+          <div class="count">${n}</div>
+          <div class="icon" style="background:${c.color}1a;color:${c.color}">${c.emoji}</div>
+          <h3>${esc(c.name)}</h3>
+          <div class="meta">创建于 ${fmtDate(c.createdAt)}</div>
+          <button class="btn ghost sm del" onclick="event.stopPropagation();delCat('${c.id}','${esc(c.name)}')" title="删除类型">🗑</button>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+/* 类型详情 */
+function renderCategory(v, ta){
+  const cat = DB.cats.find(c=>c.id===curCat);
+  if(!cat){ curCat=null; return renderHome(v,ta); }
+  const list = DB.searchEntries(curCat, curKw);
+  ta.innerHTML = `<button class="btn" onclick="exportCat('${curCat}')">导出</button>
+    <button class="btn primary" onclick="entryModal()">+ 添加错题</button>`;
+  v.innerHTML = `
+    <div class="crumbs">
+      <a onclick="backHome()">首页</a>
+      <span class="sep">/</span>
+      <span style="color:var(--ink)">${cat.emoji} ${esc(cat.name)}</span>
+    </div>
+    <div class="toolbar">
+      <div class="search">
+        <span class="si">🔍</span>
+        <input class="input" placeholder="搜索错题/正解/错因..." value="${esc(curKw)}" oninput="onSearch(this.value)">
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">${DB.entries(curCat).length}</div><div class="t">错题总数</div></div>
+      <div class="stat"><div class="n">${list.length}</div><div class="t">当前筛选</div></div>
+    </div>
+    <div id="entryList"></div>`;
+  renderEntries(list);
+}
+function renderEntries(list){
+  const box = $('#entryList');
+  if(list.length===0){
+    box.innerHTML = `<div class="empty">
+      <div class="big">🗒</div>
+      <div style="font-size:16px;margin-bottom:6px;color:var(--ink)">${curKw?'没有匹配的错题':'这里还没有错题'}</div>
+      <div>${curKw?'换个关键词试试':'点击右上角「+ 添加错题」记录第一道'}</div>
+    </div>`;
+    return;
+  }
+  box.innerHTML = list.map(e=>{
+    const qIsImg = e.qType==='image';
+    const aIsImg = e.aType==='image';
+    const qHtml = qIsImg
+      ? `<img src="${e.question}" onclick="showImg(this.src)" alt="题目图片">`
+      : `<div class="txt">${esc(e.question||'（无）')}</div>`;
+    const aHtml = aIsImg
+      ? `<img src="${e.answer}" onclick="showImg(this.src)" alt="正解图片">`
+      : `<div class="txt">${esc(e.answer||'（无）')}</div>`;
+    return `<div class="entry">
+      <div class="head">
+        <span class="date-tag">📅 ${fmtDate(e.date)}</span>
+        <div class="actions">
+          <button class="btn sm" onclick="entryModal('${e.id}')">✏ 编辑</button>
+          <button class="btn sm danger" onclick="delEntry('${e.id}')">删除</button>
+        </div>
+      </div>
+      <div class="blk field-q">
+        <div class="label"><span class="dot"></span>错题</div>
+        ${qHtml}
+      </div>
+      <div class="blk field-a">
+        <div class="label"><span class="dot"></span>正解</div>
+        ${aHtml}
+      </div>
+      ${e.analysis?`<div class="blk field-r">
+        <div class="label"><span class="dot"></span>错因分析</div>
+        <div class="txt">${esc(e.analysis)}</div>
+      </div>`:''}
+    </div>`;
+  }).join('');
+}
+
+/* ======================= 导航 ======================= */
+function enterCat(cid){ curCat=cid; curKw=''; render(); }
+function backHome(){ curCat=null; curKw=''; render(); }
+function onSearch(v){ curKw=v; const list=DB.searchEntries(curCat,curKw); renderEntries(list); }
+
+/* ======================= 模态框 ======================= */
+function openModal(html){ $('#modal').innerHTML=html; $('#mask').classList.add('show'); }
+function closeModal(){ $('#mask').classList.remove('show'); $('#modal').innerHTML=''; }
+$('#mask').addEventListener('click',e=>{ if(e.target.id==='mask') closeModal(); });
+
+/* 新建类型 */
+let newColorIdx=0;
+function newCatModal(){
+  newColorIdx=0;
+  openModal(`
+    <div class="mhead"><h3>新建类型</h3></div>
+    <div class="mbody">
+      <div class="form-row">
+        <label>类型名称 <span class="req">*</span></label>
+        <input class="input" id="catName" placeholder="如：数学、英语、物理" autofocus>
+      </div>
+      <div class="form-row">
+        <label>颜色与图标</label>
+        <div class="colors" id="colorList">
+          ${COLORS.map((x,i)=>`<div class="c ${i===0?'on':''}" data-i="${i}" style="background:${x.c}1a;color:${x.c}" onclick="pickColor(${i})">${x.e}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn" onclick="closeModal()">取消</button>
+      <button class="btn primary" onclick="submitCat()">创建</button>
+    </div>
+  `);
+  setTimeout(()=>{ const el=$('#catName'); el.focus(); el.addEventListener('keydown',e=>{ if(e.key==='Enter') submitCat(); }); },10);
+}
+function pickColor(i){
+  newColorIdx=i;
+  document.querySelectorAll('#colorList .c').forEach((el,idx)=>el.classList.toggle('on',idx===i));
+}
+function submitCat(){
+  const name = $('#catName').value.trim();
+  if(!name){ toast('请输入类型名称'); return; }
+  const c = COLORS[newColorIdx];
+  DB.addCat(name, c.c, c.e);
+  closeModal();
+  toast('已创建');
+  render();
+}
+function delCat(cid,name){
+  const n = DB.entries(cid).length;
+  if(!confirm(`确定删除「${name}」${n?`及其 ${n} 道错题`:''}？此操作不可撤销。`)) return;
+  DB.delCat(cid);
+  toast('已删除');
+  render();
+}
+
+/* 添加/编辑错题 */
+let editState = null; // {id, qType, aType, qData, aData}
+function entryModal(eid){
+  const editing = !!eid;
+  let entry = {id:null, qType:'text', question:'', aType:'text', answer:'', analysis:'', date:today()};
+  if(eid){
+    const arr = DB.entries(curCat);
+    const e = arr.find(x=>x.id===eid);
+    if(e) entry = {...e};
+  }
+  editState = {id:eid, qType:entry.qType, aType:entry.aType, qData:entry.question, aData:entry.answer};
+  openModal(`
+    <div class="mhead"><h3>${editing?'编辑错题':'添加错题'}</h3></div>
+    <div class="mbody">
+      <div class="form-row">
+        <label>错题 <span class="req">*</span></label>
+        <div class="seg" id="qSeg">
+          <button class="${entry.qType==='text'?'on':''}" onclick="switchType('q','text')">文本</button>
+          <button class="${entry.qType==='image'?'on':''}" onclick="switchType('q','image')">图片</button>
+        </div>
+        <div id="qArea" style="margin-top:10px"></div>
+      </div>
+      <div class="form-row">
+        <label>正解 <span class="req">*</span></label>
+        <div class="seg" id="aSeg">
+          <button class="${entry.aType==='text'?'on':''}" onclick="switchType('a','text')">文本</button>
+          <button class="${entry.aType==='image'?'on':''}" onclick="switchType('a','image')">图片</button>
+        </div>
+        <div id="aArea" style="margin-top:10px"></div>
+      </div>
+      <div class="form-row">
+        <label>错因分析</label>
+        <textarea class="textarea" id="analysis" placeholder="为什么会错？是知识点不熟、计算失误还是审题不清...">${esc(entry.analysis||'')}</textarea>
+      </div>
+      <div class="form-row">
+        <label>日期</label>
+        <input class="input" type="date" id="date" value="${entry.date||today()}">
+        <div style="font-size:12px;color:var(--sub);margin-top:4px">默认自动记录今天，可手动修改</div>
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn" onclick="closeModal()">取消</button>
+      <button class="btn primary" onclick="submitEntry()">${editing?'保存':'添加'}</button>
+    </div>
+  `);
+  refreshType('q');
+  refreshType('a');
+}
+function switchType(field,type){
+  if(field==='q'){
+    editState.qType=type;
+    if(type==='image' && editState.qData && !editState.qData.startsWith('data:')) editState.qData='';
+  }else{
+    editState.aType=type;
+    if(type==='image' && editState.aData && !editState.aData.startsWith('data:')) editState.aData='';
+  }
+  document.querySelectorAll('#'+field+'Seg button').forEach(b=>b.classList.remove('on'));
+  event.target.classList.add('on');
+  refreshType(field);
+}
+function refreshType(field){
+  const type = field==='q'?editState.qType:editState.aType;
+  const data = field==='q'?editState.qData:editState.aData;
+  const box = $('#'+field+'Area');
+  if(type==='text'){
+    box.innerHTML = `<textarea class="textarea" id="${field}Input" placeholder="${field==='q'?'输入或粘贴题目内容':'输入或粘贴正解内容'}"></textarea>`;
+    if(data && !data.startsWith('data:')) $('#'+field+'Input').value = data;
+  }else{
+    if(data && data.startsWith('data:')){
+      box.innerHTML = `<div class="preview-wrap"><img class="preview-img" src="${data}"><button class="rm" onclick="clearImg('${field}')">×</button></div>`;
+    }else{
+      box.innerHTML = `<label class="img-pick" for="file_${field}">
+        📷 点击选择图片
+        <input type="file" accept="image/*" id="file_${field}" onchange="onPickImg('${field}',this.files[0])">
+      </label>`;
+    }
+  }
+}
+function clearImg(field){
+  if(field==='q') editState.qData=''; else editState.aData='';
+  refreshType(field);
+}
+async function onPickImg(field,file){
+  if(!file) return;
+  toast('处理中...');
+  try{
+    const b64 = await compressImage(file);
+    if(field==='q') editState.qData=b64; else editState.aData=b64;
+    refreshType(field);
+    toast('已加载图片');
+  }catch(e){ toast('图片读取失败'); }
+}
+function submitEntry(){
+  // 提取文本
+  if(editState.qType==='text'){
+    const v = $('#qInput').value.trim();
+    if(!v){ toast('请填写错题内容'); return; }
+    editState.qData = v;
+  }else{
+    if(!editState.qData){ toast('请上传错题图片'); return; }
+  }
+  if(editState.aType==='text'){
+    const v = $('#aInput').value.trim();
+    if(!v){ toast('请填写正解内容'); return; }
+    editState.aData = v;
+  }else{
+    if(!editState.aData){ toast('请上传正解图片'); return; }
+  }
+  const analysis = $('#analysis').value.trim();
+  const date = $('#date').value || today();
+  const payload = {
+    qType:editState.qType, question:editState.qData,
+    aType:editState.aType, answer:editState.aData,
+    analysis, date
+  };
+  if(editState.id){
+    DB.updEntry(curCat, editState.id, payload);
+    toast('已保存');
+  }else{
+    DB.addEntry(curCat, {id:uid(), ...payload});
+    toast('已添加');
+  }
+  closeModal();
+  render();
+}
+function delEntry(eid){
+  if(!confirm('确定删除这道错题？')) return;
+  DB.delEntry(curCat, eid);
+  toast('已删除');
+  render();
+}
+
+/* ======================= 图片预览 ======================= */
+function showImg(src){
+  $('#lightboxImg').src = src;
+  $('#lightbox').classList.add('show');
+}
+$('#lightbox').addEventListener('click',()=>$('#lightbox').classList.remove('show'));
+
+/* ======================= 导入导出 ======================= */
+function download(name, content){
+  const blob = new Blob([content], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function exportAll(){
+  const d = DB.load();
+  download(`错题本_全部_${today()}.json`, JSON.stringify(d,null,2));
+  toast('已导出');
+}
+function exportCat(cid){
+  const cat = DB.cats.find(c=>c.id===cid);
+  const d = {categories:[cat], entries:{[cid]:DB.entries(cid)}};
+  download(`错题本_${cat.name}_${today()}.json`, JSON.stringify(d,null,2));
+  toast('已导出');
+}
+function importData(file){
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const data = JSON.parse(r.result);
+      if(!data.categories||!data.entries) throw 0;
+      const cur = DB.load();
+      // 合并：以 id 去重
+      const existIds = new Set(cur.categories.map(c=>c.id));
+      data.categories.forEach(c=>{ if(!existIds.has(c.id)) cur.categories.push(c); });
+      data.entries && Object.keys(data.entries).forEach(cid=>{
+        if(!cur.entries[cid]) cur.entries[cid]=[];
+        const exist = new Set(cur.entries[cid].map(e=>e.id));
+        (data.entries[cid]||[]).forEach(e=>{ if(!exist.has(e.id)) cur.entries[cid].push(e); });
+      });
+      DB.save(cur);
+      toast('导入成功');
+      render();
+    }catch(e){ toast('文件格式不正确'); }
+  };
+  r.readAsText(file);
+}
+
+/* ======================= 初始化 ======================= */
+render();
+// 快捷键：ESC 关闭
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){
+    if($('#lightbox').classList.contains('show')) $('#lightbox').classList.remove('show');
+    else if($('#mask').classList.contains('show')) closeModal();
+  }
+});
+</script>
+</body>
+</html>
