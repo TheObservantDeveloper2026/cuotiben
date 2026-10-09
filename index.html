@@ -32,10 +32,7 @@
   }
   .wrap{max-width:980px;margin:0 auto;padding:24px 20px 80px}
   /* 顶栏 */
-  header{
-    display:flex;align-items:center;gap:14px;
-    padding:8px 4px 22px;
-  }
+  header{display:flex;align-items:center;gap:14px;padding:8px 4px 22px}
   .logo{
     width:42px;height:42px;border-radius:12px;
     background:linear-gradient(135deg,var(--brand),var(--brand-2));
@@ -45,12 +42,12 @@
   }
   h1{font-size:22px;margin:0;letter-spacing:.5px}
   .sub{font-size:12px;color:var(--sub);margin-top:2px}
-  .top-actions{margin-left:auto;display:flex;gap:8px}
+  .top-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
   .btn{
     border:1px solid var(--line);background:var(--card);color:var(--ink);
     padding:9px 14px;border-radius:10px;cursor:pointer;font-size:14px;
     display:inline-flex;align-items:center;gap:6px;
-    transition:all .15s;
+    transition:all .15s;font-family:inherit;
   }
   .btn:hover{border-color:var(--brand);color:var(--brand)}
   .btn.primary{
@@ -65,10 +62,7 @@
   .btn.sm{padding:6px 10px;font-size:13px}
 
   /* 类型卡片 */
-  .grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:16px;
-  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
   .card{
     background:var(--card);border-radius:var(--radius);
     padding:20px;box-shadow:var(--shadow);
@@ -80,127 +74,131 @@
   .card .icon{
     width:46px;height:46px;border-radius:12px;
     display:flex;align-items:center;justify-content:center;
-    font-size:24px;margin-bottom:12px;
-    background:var(--brand-soft);
+    font-size:24px;margin-bottom:12px;background:var(--brand-soft);
   }
-  .card h3{margin:0 0 4px;font-size:17px}
+  .card h3{margin:0 0 4px;font-size:17px;word-break:break-all}
   .card .meta{font-size:12px;color:var(--sub)}
   .card .count{
     position:absolute;top:16px;right:16px;
     background:var(--brand-soft);color:var(--brand);
     font-size:12px;padding:3px 10px;border-radius:999px;font-weight:600;
   }
-  .card .del{
-    position:absolute;bottom:14px;right:14px;
-    opacity:0;transition:opacity .15s;
-  }
+  .card .del{position:absolute;bottom:14px;right:14px;opacity:0;transition:opacity .15s}
   .card:hover .del{opacity:1}
 
-  /* 空状态 */
-  .empty{
-    text-align:center;padding:60px 20px;color:var(--sub);
-  }
+  .empty{text-align:center;padding:60px 20px;color:var(--sub)}
   .empty .big{font-size:48px;margin-bottom:10px}
 
-  /* 面包屑 */
   .crumbs{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--sub);margin-bottom:16px;flex-wrap:wrap}
   .crumbs a{cursor:pointer;color:var(--sub);text-decoration:none}
   .crumbs a:hover{color:var(--brand)}
   .crumbs .sep{opacity:.5}
 
-  /* 错题列表 */
   .entry{
     background:var(--card);border-radius:var(--radius);
     padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow);
     border:1px solid transparent;
   }
   .entry:hover{border-color:var(--brand-soft)}
-  .entry .head{
-    display:flex;align-items:center;gap:10px;
-    margin-bottom:12px;flex-wrap:wrap;
-  }
+  .entry .head{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
   .date-tag{
     font-size:12px;color:var(--brand);background:var(--brand-soft);
     padding:3px 10px;border-radius:999px;font-weight:600;
   }
   .entry .actions{margin-left:auto;display:flex;gap:6px}
-  .entry h4{margin:0 0 12px;font-size:16px;display:flex;align-items:center;gap:8px}
   .entry .label{
     font-size:12px;color:var(--sub);font-weight:600;
-    text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;
+    letter-spacing:.5px;margin-bottom:6px;
     display:flex;align-items:center;gap:6px;
   }
   .entry .label .dot{width:8px;height:8px;border-radius:50%}
   .entry .blk{margin-bottom:14px}
   .entry .blk:last-child{margin-bottom:0}
   .entry .txt{white-space:pre-wrap;word-break:break-word;font-size:14.5px}
-  .entry img{max-width:100%;border-radius:10px;border:1px solid var(--line);display:block;margin-top:6px;cursor:zoom-in}
+  .entry .txt.empty-txt{color:var(--sub);font-size:13px;font-style:italic}
+  .entry img.att-img{
+    max-width:100%;max-height:420px;border-radius:10px;
+    border:1px solid var(--line);display:block;margin-top:8px;cursor:zoom-in;
+  }
   .field-q .dot{background:var(--danger)}
   .field-a .dot{background:var(--ok)}
   .field-r .dot{background:var(--warn)}
 
+  /* 附件图片区（多张） */
+  .img-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .img-row img.att-img{margin-top:0;max-height:240px}
+
+  /* 文件附件 chip */
+  .files{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+  .file-chip{
+    display:flex;align-items:center;gap:10px;
+    border:1px solid var(--line);border-radius:10px;
+    padding:9px 12px;text-decoration:none;color:var(--ink);
+    background:#fbfbfd;transition:all .15s;
+  }
+  .file-chip:hover{border-color:var(--brand);background:var(--brand-soft)}
+  .file-chip .fi{font-size:20px;line-height:1}
+  .file-chip .fn{font-size:13.5px;word-break:break-all;flex:1;min-width:0}
+  .file-chip .fs{font-size:11.5px;color:var(--sub);white-space:nowrap}
+  .file-chip .go{color:var(--sub);font-size:13px}
+
   /* 模态框 */
   .mask{
     position:fixed;inset:0;background:rgba(20,22,40,.45);
-    display:none;align-items:center;justify-content:center;
-    z-index:100;padding:20px;backdrop-filter:blur(4px);
+    display:none;align-items:flex-start;justify-content:center;
+    z-index:100;padding:20px;backdrop-filter:blur(4px);overflow:auto;
   }
   .mask.show{display:flex}
   .modal{
     background:var(--card);border-radius:20px;
-    width:100%;max-width:560px;max-height:90vh;
-    overflow:auto;box-shadow:var(--shadow-lg);
+    width:100%;max-width:600px;margin:auto;
+    box-shadow:var(--shadow-lg);
     animation:pop .2s ease;
   }
   @keyframes pop{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
-  .modal .mhead{
-    padding:18px 22px;border-bottom:1px solid var(--line);
-    display:flex;align-items:center;
-  }
+  .modal .mhead{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center}
   .modal .mhead h3{margin:0;font-size:17px}
   .modal .mbody{padding:22px}
   .modal .mfoot{
     padding:16px 22px;border-top:1px solid var(--line);
     display:flex;justify-content:flex-end;gap:10px;
-    position:sticky;bottom:0;background:var(--card);
+    position:sticky;bottom:0;background:var(--card);border-radius:0 0 20px 20px;
   }
   .form-row{margin-bottom:16px}
-  .form-row label{
-    display:block;font-size:13px;font-weight:600;
-    margin-bottom:7px;color:var(--ink);
-  }
-  .form-row label .req{color:var(--danger)}
+  .form-row label{display:block;font-size:13px;font-weight:600;margin-bottom:7px;color:var(--ink)}
   .input,.textarea{
     width:100%;border:1px solid var(--line);border-radius:10px;
     padding:10px 12px;font-size:14px;font-family:inherit;
-    background:#fbfbfd;color:var(--ink);
-    transition:border-color .15s;
+    background:#fbfbfd;color:var(--ink);transition:border-color .15s;
   }
   .input:focus,.textarea:focus{outline:none;border-color:var(--brand);background:#fff}
-  .textarea{resize:vertical;min-height:90px}
-  .seg{
-    display:inline-flex;background:#f0f1f6;border-radius:10px;padding:3px;gap:2px;
+  .textarea{resize:vertical;min-height:80px}
+
+  /* 附件添加栏 */
+  .add-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  /* 待上传/已有附件列表（编辑弹窗内） */
+  .att-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+  .att{
+    display:flex;align-items:center;gap:10px;
+    border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#fbfbfd;
   }
-  .seg button{
-    border:none;background:transparent;padding:7px 14px;
-    border-radius:8px;cursor:pointer;font-size:13px;color:var(--sub);
-    font-family:inherit;
+  .att .thumb{
+    width:44px;height:44px;border-radius:8px;object-fit:cover;
+    border:1px solid var(--line);background:#fff;flex:none;
   }
-  .seg button.on{background:var(--card);color:var(--brand);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-  .img-pick{
-    border:2px dashed var(--line);border-radius:12px;
-    padding:18px;text-align:center;color:var(--sub);
-    cursor:pointer;transition:all .15s;font-size:13px;
+  .att .ficon{
+    width:44px;height:44px;border-radius:8px;background:#fff;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-size:22px;flex:none;
   }
-  .img-pick:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
-  .img-pick input{display:none}
-  .preview-img{max-width:100%;max-height:200px;border-radius:10px;border:1px solid var(--line);margin-top:10px}
-  .preview-wrap{position:relative;display:inline-block}
-  .preview-wrap .rm{
-    position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);color:#fff;
-    border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:14px;
-    display:flex;align-items:center;justify-content:center;
+  .att .meta{flex:1;min-width:0}
+  .att .meta .nm{font-size:13px;word-break:break-all;line-height:1.35}
+  .att .meta .sz{font-size:11.5px;color:var(--sub)}
+  .att .x{
+    border:none;background:#ffe9e9;color:var(--danger);
+    width:26px;height:26px;border-radius:8px;cursor:pointer;font-size:14px;flex:none;
   }
+  .att .x:hover{background:#ffd0d0}
+
   /* 颜色选择 */
   .colors{display:flex;gap:8px;flex-wrap:wrap}
   .colors .c{
@@ -210,18 +208,14 @@
   }
   .colors .c.on{border-color:var(--ink);transform:scale(1.08)}
 
-  /* 搜索 */
   .toolbar{display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
-  .search{
-    flex:1;min-width:200px;position:relative;
-  }
+  .search{flex:1;min-width:200px;position:relative}
   .search input{padding-left:36px}
   .search .si{
     position:absolute;left:12px;top:50%;transform:translateY(-50%);
     color:var(--sub);font-size:14px;pointer-events:none;
   }
 
-  /* 图片预览大图 */
   .lightbox{
     position:fixed;inset:0;background:rgba(0,0,0,.85);
     display:none;align-items:center;justify-content:center;
@@ -230,29 +224,39 @@
   .lightbox.show{display:flex}
   .lightbox img{max-width:100%;max-height:100%;border-radius:8px}
 
-  /* toast */
   .toast{
     position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
     background:#1f2335;color:#fff;padding:10px 18px;border-radius:10px;
     font-size:14px;opacity:0;transition:all .25s;z-index:300;pointer-events:none;
+    max-width:90vw;text-align:center;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  /* 统计条 */
-  .stats{
-    display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;
-  }
-  .stat{
-    background:var(--card);border-radius:12px;padding:12px 16px;
-    box-shadow:var(--shadow);flex:1;min-width:120px;
-  }
+  .stats{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+  .stat{background:var(--card);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow);flex:1;min-width:120px}
   .stat .n{font-size:22px;font-weight:700;color:var(--brand)}
   .stat .t{font-size:12px;color:var(--sub)}
+
+  /* 摄像头弹窗 */
+  #camMask .modal{max-width:560px}
+  #video{
+    width:100%;border-radius:12px;background:#000;display:block;
+    aspect-ratio:4/3;object-fit:cover;
+  }
+  .cam-tip{font-size:12.5px;color:var(--sub);margin-top:8px}
+  .cam-actions{display:flex;gap:10px;justify-content:center;margin-top:14px}
+  .shutter{
+    width:64px;height:64px;border-radius:50%;border:4px solid #fff;
+    background:var(--danger);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.3);
+  }
+  .shutter:active{transform:scale(.92)}
 
   @media(max-width:600px){
     .wrap{padding:16px 14px 60px}
     .grid{grid-template-columns:repeat(2,1fr);gap:12px}
     .card{padding:16px}
+    .mask{padding:0}
+    .modal{border-radius:0;min-height:100vh;max-width:100%}
   }
 </style>
 </head>
@@ -266,150 +270,197 @@
     </div>
     <div class="top-actions" id="topActions"></div>
   </header>
-
   <div id="view"></div>
 </div>
 
-<!-- 模态框容器 -->
-<div class="mask" id="mask">
-  <div class="modal" id="modal"></div>
+<!-- 普通模态框 -->
+<div class="mask" id="mask"><div class="modal" id="modal"></div></div>
+
+<!-- 摄像头模态框 -->
+<div class="mask" id="camMask">
+  <div class="modal">
+    <div class="mhead"><h3>📷 拍照录题</h3></div>
+    <div class="mbody">
+      <video id="video" autoplay playsinline muted></video>
+      <div class="cam-tip">对准题目后点击拍照按钮。如无法调用摄像头，可<a onclick="camFallback()" style="color:var(--brand);cursor:pointer">点此从相册/文件选择</a>。</div>
+      <div class="cam-actions">
+        <button class="btn" onclick="closeCamera()">取消</button>
+        <button class="shutter" onclick="snap()" title="拍照"></button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- 隐藏的文件选择器 -->
+<input type="file" id="filePicker" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.md,.zip,.rar,.7z" style="display:none">
+<input type="file" id="camPicker" accept="image/*" capture="environment" style="display:none">
 
 <!-- 图片预览 -->
 <div class="lightbox" id="lightbox"><img id="lightboxImg" alt="预览"></div>
-
-<!-- toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-/* ======================= 数据层 ======================= */
+'use strict';
+/* ======================= IndexedDB 数据层 ======================= */
 const DB = {
-  key:'cuotiben_v1',
-  load(){
-    try{
-      const raw = localStorage.getItem(this.key);
-      if(!raw) return {categories:[],entries:{}};
-      const d = JSON.parse(raw);
-      d.categories = d.categories||[];
-      d.entries = d.entries||{};
-      return d;
-    }catch(e){ return {categories:[],entries:{}}; }
+  db:null,
+  ready:null,
+  init(){
+    this.ready = new Promise((resolve,reject)=>{
+      const r = indexedDB.open('cuotiben_db', 1);
+      r.onupgradeneeded = e=>{
+        const d = e.target.result;
+        if(!d.objectStoreNames.contains('state')) d.createObjectStore('state');
+        if(!d.objectStoreNames.contains('files')) d.createObjectStore('files');
+      };
+      r.onsuccess = ()=>{ this.db = r.result; resolve(); };
+      r.onerror = ()=>reject(r.error);
+    });
+    return this.ready;
   },
-  save(d){ localStorage.setItem(this.key, JSON.stringify(d)); },
-  get cats(){ return this.load().categories; },
-  entries(cid){ return this.load().entries[cid]||[]; },
-  addCat(name,color,emoji){
-    const d = this.load();
-    const c = {id:'c'+Date.now()+Math.random().toString(36).slice(2,6),name,color,emoji,createdAt:new Date().toISOString()};
-    d.categories.push(c);
-    d.entries[c.id] = [];
-    this.save(d);
-    return c;
+  _store(name, mode){
+    return this.db.transaction(name, mode).objectStore(name);
   },
-  delCat(cid){
-    const d = this.load();
-    d.categories = d.categories.filter(c=>c.id!==cid);
-    delete d.entries[cid];
-    this.save(d);
+  _req(req){
+    return new Promise((res,rej)=>{ req.onsuccess=()=>res(req.result); req.onerror=()=>rej(req.error); });
   },
-  addEntry(cid,e){
-    const d = this.load();
-    if(!d.entries[cid]) d.entries[cid]=[];
-    d.entries[cid].unshift(e);
-    this.save(d);
+  async getState(){
+    const s = await this._req(this._store('state','readonly').get('state'));
+    return s || {categories:[], entries:{}};
   },
-  updEntry(cid,eid,patch){
-    const d = this.load();
-    const arr = d.entries[cid]||[];
-    const i = arr.findIndex(x=>x.id===eid);
-    if(i>=0){ arr[i]={...arr[i],...patch}; this.save(d); }
+  async setState(s){
+    await this._req(this._store('state','readwrite').put(s,'state'));
   },
-  delEntry(cid,eid){
-    const d = this.load();
-    d.entries[cid] = (d.entries[cid]||[]).filter(x=>x.id!==eid);
-    this.save(d);
+  async putFile(id, blob){
+    await this._req(this._store('files','readwrite').put(blob, id));
   },
-  searchEntries(cid, kw){
-    const list = this.entries(cid);
-    if(!kw) return list;
-    kw = kw.toLowerCase();
-    return list.filter(e =>
-      (e.question||'').toLowerCase().includes(kw) ||
-      (e.answer||'').toLowerCase().includes(kw) ||
-      (e.analysis||'').toLowerCase().includes(kw) ||
-      (e.date||'').includes(kw)
-    );
+  async getFile(id){
+    return await this._req(this._store('files','readonly').get(id));
+  },
+  async delFile(id){
+    await this._req(this._store('files','readwrite').delete(id));
+  },
+  async delFiles(ids){
+    const st = this._store('files','readwrite');
+    await Promise.all(ids.map(id=>this._req(st.delete(id))));
   }
 };
 
-/* ======================= 工具 ======================= */
-const $ = s => document.querySelector(s);
-const uid = ()=>'e'+Date.now()+Math.random().toString(36).slice(2,6);
-const today = ()=>{ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
-const fmtDate = iso=>{ if(!iso) return ''; const d=new Date(iso); if(isNaN(d)) return iso; const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
-const esc = s => (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1800); }
-
-const COLORS = [
-  {c:'#5b6cff',e:'📘'},{c:'#22b07d',e:'📗'},{c:'#ff7a45',e:'📙'},
-  {c:'#a855f7',e:'📔'},{c:'#ec4899',e:'📕'},{c:'#0ea5e9',e:'📓'},
-  {c:'#f59e0b',e:'📚'},{c:'#14b8a6',e:'✏️'}
-];
-
-/* ======================= 图片处理 ======================= */
-function fileToBase64(file){
-  return new Promise((res,rej)=>{
-    const r = new FileReader();
-    r.onload = ()=>res(r.result);
-    r.onerror = rej;
-    r.readAsDataURL(file);
-  });
-}
-// 压缩图片避免 localStorage 爆掉
-function compressImage(file, maxW=1280, qlt=0.82){
-  return new Promise((res,rej)=>{
-    const r = new FileReader();
-    r.onload = ()=>{
-      const img = new Image();
-      img.onload = ()=>{
-        let {width:w,height:h} = img;
-        if(w>maxW){ h = h*maxW/w; w = maxW; }
-        const cv = document.createElement('canvas');
-        cv.width=w; cv.height=h;
-        const ctx = cv.getContext('2d');
-        ctx.drawImage(img,0,0,w,h);
-        res(cv.toDataURL('image/jpeg',qlt));
-      };
-      img.onerror = rej;
-      img.src = r.result;
-    };
-    r.onerror = rej;
-    r.readAsDataURL(file);
-  });
-}
-
-/* ======================= 视图 ======================= */
+/* ======================= 全局状态 ======================= */
+let S = {categories:[], entries:{}};   // 内存缓存
 let curCat = null;
 let curKw = '';
 
-function render(){
-  const v = $('#view');
-  const ta = $('#topActions');
-  if(curCat){
-    renderCategory(v, ta);
-  }else{
-    renderHome(v, ta);
+async function save(){ await DB.setState(S); }
+
+/* ======================= 工具 ======================= */
+const $ = s=>document.querySelector(s);
+const uid = p=> (p||'f') + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+const today = ()=>{ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
+const nowName = ()=>{ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`; };
+const fmtDate = iso=>{ if(!iso) return ''; const d=new Date(iso); if(isNaN(d)) return iso; const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
+const esc = s=>(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2000); }
+function fmtSize(bytes){
+  if(bytes==null) return '';
+  if(bytes<1024) return bytes+' B';
+  if(bytes<1024*1024) return (bytes/1024).toFixed(1)+' KB';
+  return (bytes/1024/1024).toFixed(2)+' MB';
+}
+function fileKind(name, type){
+  const n = (name||'').toLowerCase();
+  if((type||'').startsWith('image/') || /\.(png|jpe?g|gif|webp|bmp|svg|heic|heif)$/.test(n)) return 'image';
+  if(n.endsWith('.pdf') || type==='application/pdf') return 'pdf';
+  if(/\.(docx?|rtf|wps)$/.test(n)) return 'word';
+  if(/\.(xlsx?|csv|et)$/.test(n)) return 'excel';
+  if(/\.(pptx?|dps)$/.test(n)) return 'ppt';
+  if(/\.(txt|md|log)$/.test(n) || type.startsWith('text/')) return 'text';
+  if(/\.(zip|rar|7z|tar|gz)$/.test(n)) return 'zip';
+  return 'file';
+}
+const KIND_ICON = {image:'🖼️',pdf:'📕',word:'📘',excel:'📗',ppt:'📙',text:'📄',zip:'🗜️',file:'📎'};
+
+/* ======================= 图片压缩（Blob 版） ======================= */
+function compressImage(file, maxW=1280, qlt=0.82){
+  return new Promise((resolve,reject)=>{
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = ()=>{
+      URL.revokeObjectURL(url);
+      let w=img.width, h=img.height;
+      if(w>maxW){ h=Math.round(h*maxW/w); w=maxW; }
+      const cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+      cv.getContext('2d').drawImage(img,0,0,w,h);
+      cv.toBlob(b=> b ? resolve(b) : resolve(file), 'image/jpeg', qlt);
+    };
+    img.onerror = ()=>{ URL.revokeObjectURL(url); resolve(file); };
+    img.src = url;
+  });
+}
+function dataURLtoBlob(dataurl){
+  return fetch(dataurl).then(r=>r.blob()).catch(()=>null);
+}
+function blobToDataURL(blob){
+  return new Promise((res,rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=rej; fr.readAsDataURL(blob); });
+}
+
+/* ======================= 旧数据迁移 ======================= */
+async function migrate(){
+  const FLAG = 'cuotiben_migrated';
+  if(localStorage.getItem(FLAG)) return;
+  const raw = localStorage.getItem('cuotiben_v1');
+  if(!raw){ localStorage.setItem(FLAG,'1'); return; }
+  try{
+    const old = JSON.parse(raw);
+    const existing = await DB.getState();
+    if(existing.categories.length){ localStorage.setItem(FLAG,'1'); return; }
+    for(const c of (old.categories||[])){
+      if(!S.categories.some(x=>x.id===c.id)) S.categories.push(c);
+    }
+    for(const cid of Object.keys(old.entries||{})){
+      S.entries[cid] = [];
+      for(const e of old.entries[cid]){
+        const ne = {id:e.id||uid('e'), date:e.date||today(), analysis:e.analysis||'', q:{text:'',files:[]}, a:{text:'',files:[]}};
+        await importSide(ne.q, e.qType, e.question, '题目');
+        await importSide(ne.a, e.aType, e.answer, '正解');
+        S.entries[cid].push(ne);
+      }
+    }
+    await save();
+    localStorage.setItem(FLAG,'1');
+    if(S.categories.length) toast('已自动迁移旧版数据');
+  }catch(err){
+    console.error('migrate failed', err);
+    localStorage.setItem(FLAG,'1');
+  }
+}
+async function importSide(side, type, val, label){
+  if(type==='image' && val && val.startsWith('data:')){
+    const blob = await dataURLtoBlob(val);
+    if(blob){
+      const id = uid();
+      await DB.putFile(id, blob);
+      side.files.push({id, name:label+'图片_'+nowName()+'.jpg', type:blob.type||'image/jpeg', size:blob.size, kind:'image'});
+    }
+  }else if(type!=='image' && val){
+    side.text = val;
   }
 }
 
-/* 首页 */
-function renderHome(v, ta){
-  const cats = DB.cats;
-  ta.innerHTML = `<button class="btn" onclick="exportAll()">导出</button>
+/* ======================= 渲染 ======================= */
+async function render(){
+  const v=$('#view'), ta=$('#topActions');
+  if(curCat){ await renderCategory(v,ta); } else { renderHome(v,ta); }
+}
+function renderHome(v,ta){
+  ta.innerHTML = `<button class="btn" onclick="exportAll()">导出备份</button>
+    <label class="btn" for="importPicker">导入备份</label>
+    <input type="file" id="importPicker" accept=".json" style="display:none" onchange="importData(this.files[0]);this.value=''">
     <button class="btn primary" onclick="newCatModal()">+ 新建类型</button>`;
-  let total = 0;
-  cats.forEach(c=>total += DB.entries(c.id).length);
-  if(cats.length===0){
+  const cats = S.categories;
+  let total=0;
+  cats.forEach(c=> total += (S.entries[c.id]||[]).length);
+  if(!cats.length){
     v.innerHTML = `<div class="empty">
       <div class="big">📝</div>
       <div style="font-size:16px;margin-bottom:6px;color:var(--ink)">还没有任何错题类型</div>
@@ -423,48 +474,61 @@ function renderHome(v, ta){
       <div class="stat"><div class="n">${total}</div><div class="t">错题总数</div></div>
     </div>
     <div class="grid">
-      ${cats.map(c=>{
-        const n = DB.entries(c.id).length;
-        return `<div class="card" onclick="enterCat('${c.id}')">
-          <div class="count">${n}</div>
+      ${cats.map(c=>`
+        <div class="card" onclick="enterCat('${c.id}')">
+          <div class="count">${(S.entries[c.id]||[]).length}</div>
           <div class="icon" style="background:${c.color}1a;color:${c.color}">${c.emoji}</div>
           <h3>${esc(c.name)}</h3>
           <div class="meta">创建于 ${fmtDate(c.createdAt)}</div>
           <button class="btn ghost sm del" onclick="event.stopPropagation();delCat('${c.id}','${esc(c.name)}')" title="删除类型">🗑</button>
-        </div>`;
-      }).join('')}
+        </div>`).join('')}
     </div>`;
 }
-
-/* 类型详情 */
-function renderCategory(v, ta){
-  const cat = DB.cats.find(c=>c.id===curCat);
+async function renderCategory(v,ta){
+  const cat = S.categories.find(c=>c.id===curCat);
   if(!cat){ curCat=null; return renderHome(v,ta); }
-  const list = DB.searchEntries(curCat, curKw);
-  ta.innerHTML = `<button class="btn" onclick="exportCat('${curCat}')">导出</button>
-    <button class="btn primary" onclick="entryModal()">+ 添加错题</button>`;
+  const all = S.entries[curCat]||[];
+  const list = searchList(all, curKw);
+  ta.innerHTML = `<button class="btn" onclick="exportCat('${curCat}')">导出本类</button>
+    <button class="btn primary" onclick="entryModal(null)">+ 添加错题</button>`;
   v.innerHTML = `
     <div class="crumbs">
-      <a onclick="backHome()">首页</a>
-      <span class="sep">/</span>
+      <a onclick="backHome()">首页</a><span class="sep">/</span>
       <span style="color:var(--ink)">${cat.emoji} ${esc(cat.name)}</span>
     </div>
     <div class="toolbar">
       <div class="search">
         <span class="si">🔍</span>
-        <input class="input" placeholder="搜索错题/正解/错因..." value="${esc(curKw)}" oninput="onSearch(this.value)">
+        <input class="input" placeholder="搜索错题/正解/错因/文件名..." value="${esc(curKw)}" oninput="onSearch(this.value)">
       </div>
     </div>
     <div class="stats">
-      <div class="stat"><div class="n">${DB.entries(curCat).length}</div><div class="t">错题总数</div></div>
+      <div class="stat"><div class="n">${all.length}</div><div class="t">错题总数</div></div>
       <div class="stat"><div class="n">${list.length}</div><div class="t">当前筛选</div></div>
     </div>
     <div id="entryList"></div>`;
-  renderEntries(list);
+  await renderEntries(list);
 }
-function renderEntries(list){
-  const box = $('#entryList');
-  if(list.length===0){
+function searchList(list, kw){
+  if(!kw) return list;
+  kw=kw.toLowerCase();
+  return list.filter(e=>{
+    const hay = [e.date, e.analysis, e.q&&e.q.text, e.a&&e.a.text,
+      ...((e.q&&e.q.files)||[]).map(f=>f.name),
+      ...((e.a&&e.a.files)||[]).map(f=>f.name)].join('\n').toLowerCase();
+    return hay.includes(kw);
+  });
+}
+
+/* 对象 URL 生命周期管理 */
+let objURLs = [];
+function keepURL(u){ objURLs.push(u); return u; }
+function revokeAll(){ objURLs.forEach(u=>URL.revokeObjectURL(u)); objURLs=[]; }
+
+async function renderEntries(list){
+  revokeAll();
+  const box=$('#entryList');
+  if(!list.length){
     box.innerHTML = `<div class="empty">
       <div class="big">🗒</div>
       <div style="font-size:16px;margin-bottom:6px;color:var(--ink)">${curKw?'没有匹配的错题':'这里还没有错题'}</div>
@@ -473,14 +537,7 @@ function renderEntries(list){
     return;
   }
   box.innerHTML = list.map(e=>{
-    const qIsImg = e.qType==='image';
-    const aIsImg = e.aType==='image';
-    const qHtml = qIsImg
-      ? `<img src="${e.question}" onclick="showImg(this.src)" alt="题目图片">`
-      : `<div class="txt">${esc(e.question||'（无）')}</div>`;
-    const aHtml = aIsImg
-      ? `<img src="${e.answer}" onclick="showImg(this.src)" alt="正解图片">`
-      : `<div class="txt">${esc(e.answer||'（无）')}</div>`;
+    const q=e.q||{text:'',files:[]}, a=e.a||{text:'',files:[]};
     return `<div class="entry">
       <div class="head">
         <span class="date-tag">📅 ${fmtDate(e.date)}</span>
@@ -491,11 +548,13 @@ function renderEntries(list){
       </div>
       <div class="blk field-q">
         <div class="label"><span class="dot"></span>错题</div>
-        ${qHtml}
+        ${q.text?`<div class="txt">${esc(q.text)}</div>`:''}
+        <div class="att-view" data-side="q" data-eid="${e.id}"></div>
       </div>
       <div class="blk field-a">
         <div class="label"><span class="dot"></span>正解</div>
-        ${aHtml}
+        ${a.text?`<div class="txt">${esc(a.text)}</div>`:''}
+        <div class="att-view" data-side="a" data-eid="${e.id}"></div>
       </div>
       ${e.analysis?`<div class="blk field-r">
         <div class="label"><span class="dot"></span>错因分析</div>
@@ -503,19 +562,67 @@ function renderEntries(list){
       </div>`:''}
     </div>`;
   }).join('');
+  // 异步填充附件（从 IDB 取 blob）
+  for(const e of list){
+    for(const side of ['q','a']){
+      const el = document.querySelector(`.att-view[data-side="${side}"][data-eid="${e.id}"]`);
+      if(el) await fillAttView(el, e[side]&&e[side].files||[]);
+    }
+  }
+}
+async function fillAttView(el, files){
+  if(!files || !files.length){ el.innerHTML=''; return; }
+  const imgs=[], others=[];
+  for(const f of files) (f.kind==='image'?imgs:others).push(f);
+  let html='';
+  if(imgs.length) html += `<div class="img-row">${imgs.map(f=>`<img class="att-img" data-fid="${f.id}" alt="${esc(f.name)}">`).join('')}</div>`;
+  if(others.length) html += `<div class="files">${others.map(f=>`
+    <a class="file-chip" data-fid="${f.id}">
+      <span class="fi">${KIND_ICON[f.kind]||'📎'}</span>
+      <span class="fn">${esc(f.name)}</span>
+      <span class="fs">${fmtSize(f.size)}</span>
+      <span class="go">打开 ↗</span>
+    </a>`).join('')}</div>`;
+  el.innerHTML=html;
+  for(const f of files){
+    const blob = await DB.getFile(f.id);
+    if(!blob) continue;
+    const url = keepURL(URL.createObjectURL(blob));
+    if(f.kind==='image'){
+      const img=el.querySelector(`img[data-fid="${f.id}"]`);
+      if(img){ img.src=url; img.onclick=()=>showImg(url); }
+    }else{
+      const a=el.querySelector(`a[data-fid="${f.id}"]`);
+      if(a){
+        a.href=url;
+        a.target='_blank';
+        a.rel='noopener';
+        if(f.kind!=='pdf') a.download=f.name;  // PDF 直接在新标签预览，其余下载
+      }
+    }
+  }
 }
 
 /* ======================= 导航 ======================= */
 function enterCat(cid){ curCat=cid; curKw=''; render(); }
 function backHome(){ curCat=null; curKw=''; render(); }
-function onSearch(v){ curKw=v; const list=DB.searchEntries(curCat,curKw); renderEntries(list); }
+function onSearch(v){
+  curKw=v;
+  const list=searchList(S.entries[curCat]||[],curKw);
+  renderEntries(list);
+}
 
 /* ======================= 模态框 ======================= */
-function openModal(html){ $('#modal').innerHTML=html; $('#mask').classList.add('show'); }
+function openModal(h){ $('#modal').innerHTML=h; $('#mask').classList.add('show'); }
 function closeModal(){ $('#mask').classList.remove('show'); $('#modal').innerHTML=''; }
 $('#mask').addEventListener('click',e=>{ if(e.target.id==='mask') closeModal(); });
 
-/* 新建类型 */
+/* ---------- 新建类型 ---------- */
+const COLORS=[
+  {c:'#5b6cff',e:'📘'},{c:'#22b07d',e:'📗'},{c:'#ff7a45',e:'📙'},
+  {c:'#a855f7',e:'📔'},{c:'#ec4899',e:'📕'},{c:'#0ea5e9',e:'📓'},
+  {c:'#f59e0b',e:'📚'},{c:'#14b8a6',e:'✏️'}
+];
 let newColorIdx=0;
 function newCatModal(){
   newColorIdx=0;
@@ -523,77 +630,88 @@ function newCatModal(){
     <div class="mhead"><h3>新建类型</h3></div>
     <div class="mbody">
       <div class="form-row">
-        <label>类型名称 <span class="req">*</span></label>
+        <label>类型名称 <span style="color:var(--danger)">*</span></label>
         <input class="input" id="catName" placeholder="如：数学、英语、物理" autofocus>
       </div>
       <div class="form-row">
         <label>颜色与图标</label>
         <div class="colors" id="colorList">
-          ${COLORS.map((x,i)=>`<div class="c ${i===0?'on':''}" data-i="${i}" style="background:${x.c}1a;color:${x.c}" onclick="pickColor(${i})">${x.e}</div>`).join('')}
+          ${COLORS.map((x,i)=>`<div class="c ${i===0?'on':''}" style="background:${x.c}1a;color:${x.c}" onclick="pickColor(${i})">${x.e}</div>`).join('')}
         </div>
       </div>
     </div>
     <div class="mfoot">
       <button class="btn" onclick="closeModal()">取消</button>
       <button class="btn primary" onclick="submitCat()">创建</button>
-    </div>
-  `);
-  setTimeout(()=>{ const el=$('#catName'); el.focus(); el.addEventListener('keydown',e=>{ if(e.key==='Enter') submitCat(); }); },10);
+    </div>`);
+  setTimeout(()=>{ const el=$('#catName'); el.focus(); el.onkeydown=e=>{ if(e.key==='Enter') submitCat(); }; },10);
 }
 function pickColor(i){
   newColorIdx=i;
   document.querySelectorAll('#colorList .c').forEach((el,idx)=>el.classList.toggle('on',idx===i));
 }
-function submitCat(){
-  const name = $('#catName').value.trim();
+async function submitCat(){
+  const name=$('#catName').value.trim();
   if(!name){ toast('请输入类型名称'); return; }
-  const c = COLORS[newColorIdx];
-  DB.addCat(name, c.c, c.e);
-  closeModal();
-  toast('已创建');
-  render();
+  const c=COLORS[newColorIdx];
+  S.categories.push({id:uid('c'),name,color:c.c,emoji:c.e,createdAt:new Date().toISOString()});
+  S.entries[S.categories[S.categories.length-1].id]=[];
+  await save(); closeModal(); toast('已创建'); render();
 }
-function delCat(cid,name){
-  const n = DB.entries(cid).length;
+async function delCat(cid,name){
+  const n=(S.entries[cid]||[]).length;
   if(!confirm(`确定删除「${name}」${n?`及其 ${n} 道错题`:''}？此操作不可撤销。`)) return;
-  DB.delCat(cid);
-  toast('已删除');
-  render();
+  const fids=[];
+  (S.entries[cid]||[]).forEach(e=>{ (e.q.files||[]).forEach(f=>fids.push(f.id)); (e.a.files||[]).forEach(f=>fids.push(f.id)); });
+  await DB.delFiles(fids).catch(()=>{});
+  S.categories=S.categories.filter(c=>c.id!==cid);
+  delete S.entries[cid];
+  await save(); toast('已删除'); render();
 }
 
-/* 添加/编辑错题 */
-let editState = null; // {id, qType, aType, qData, aData}
+/* ---------- 添加/编辑错题 ---------- */
+// 编辑态：att[side] = [{id?, name,type,size,kind, blob?(新选择), existing:bool}]
+let editState=null;
 function entryModal(eid){
-  const editing = !!eid;
-  let entry = {id:null, qType:'text', question:'', aType:'text', answer:'', analysis:'', date:today()};
+  const editing=!!eid;
+  let entry = {id:null, date:today(), analysis:'', q:{text:'',files:[]}, a:{text:'',files:[]}};
   if(eid){
-    const arr = DB.entries(curCat);
-    const e = arr.find(x=>x.id===eid);
-    if(e) entry = {...e};
+    const e=(S.entries[curCat]||[]).find(x=>x.id===eid);
+    if(e) entry = JSON.parse(JSON.stringify(e));
   }
-  editState = {id:eid, qType:entry.qType, aType:entry.aType, qData:entry.question, aData:entry.answer};
+  editState={
+    id:eid,
+    text:{q:(entry.q&&entry.q.text)||'', a:(entry.a&&entry.a.text)||''},
+    att:{q:[], a:[]},
+    removedIds:[]
+  };
+  for(const side of ['q','a']){
+    editState.att[side] = (entry[side].files||[]).map(f=>({...f, existing:true}));
+  }
   openModal(`
     <div class="mhead"><h3>${editing?'编辑错题':'添加错题'}</h3></div>
     <div class="mbody">
       <div class="form-row">
-        <label>错题 <span class="req">*</span></label>
-        <div class="seg" id="qSeg">
-          <button class="${entry.qType==='text'?'on':''}" onclick="switchType('q','text')">文本</button>
-          <button class="${entry.qType==='image'?'on':''}" onclick="switchType('q','image')">图片</button>
+        <label>错题 <span style="color:var(--danger)">*</span>（文字与文件可同时添加）</label>
+        <textarea class="textarea" id="qText" placeholder="输入或粘贴题目文字（可留空，只传图片/文件也可以）">${esc(editState.text.q)}</textarea>
+        <div class="add-row">
+          <button type="button" class="btn sm" onclick="pickFiles('q')">📎 图片/Word/Excel/PDF/zip…</button>
+          <button type="button" class="btn sm" onclick="openCamera('q')">📷 拍照录题</button>
         </div>
-        <div id="qArea" style="margin-top:10px"></div>
+        <div class="att-list" id="qAtts"></div>
       </div>
       <div class="form-row">
-        <label>正解 <span class="req">*</span></label>
-        <div class="seg" id="aSeg">
-          <button class="${entry.aType==='text'?'on':''}" onclick="switchType('a','text')">文本</button>
-          <button class="${entry.aType==='image'?'on':''}" onclick="switchType('a','image')">图片</button>
+        <label>正解 <span style="color:var(--danger)">*</span>（文字与文件可同时添加）</label>
+        <textarea class="textarea" id="aText" placeholder="输入或粘贴正解文字（可留空，只传图片/文件也可以）">${esc(editState.text.a)}</textarea>
+        <div class="add-row">
+          <button type="button" class="btn sm" onclick="pickFiles('a')">📎 图片/Word/Excel/PDF/zip…</button>
+          <button type="button" class="btn sm" onclick="openCamera('a')">📷 拍照录题</button>
         </div>
-        <div id="aArea" style="margin-top:10px"></div>
+        <div class="att-list" id="aAtts"></div>
       </div>
       <div class="form-row">
         <label>错因分析</label>
-        <textarea class="textarea" id="analysis" placeholder="为什么会错？是知识点不熟、计算失误还是审题不清...">${esc(entry.analysis||'')}</textarea>
+        <textarea class="textarea" id="analysis" placeholder="为什么会错？知识点不熟、计算失误、审题不清…">${esc(entry.analysis||'')}</textarea>
       </div>
       <div class="form-row">
         <label>日期</label>
@@ -604,151 +722,280 @@ function entryModal(eid){
     <div class="mfoot">
       <button class="btn" onclick="closeModal()">取消</button>
       <button class="btn primary" onclick="submitEntry()">${editing?'保存':'添加'}</button>
-    </div>
-  `);
-  refreshType('q');
-  refreshType('a');
+    </div>`);
+  drawAtts('q'); drawAtts('a');
 }
-function switchType(field,type){
-  if(field==='q'){
-    editState.qType=type;
-    if(type==='image' && editState.qData && !editState.qData.startsWith('data:')) editState.qData='';
-  }else{
-    editState.aType=type;
-    if(type==='image' && editState.aData && !editState.aData.startsWith('data:')) editState.aData='';
+
+/* 附件列表（编辑弹窗内） */
+async function drawAtts(side){
+  const box=$('#'+side+'Atts');
+  if(!box) return;
+  const items=editState.att[side];
+  if(!items.length){ box.innerHTML=''; return; }
+  box.innerHTML = items.map((it,i)=>`
+    <div class="att">
+      ${it.kind==='image'
+        ? `<img class="thumb" data-i="${i}" alt="">`
+        : `<div class="ficon">${KIND_ICON[it.kind]||'📎'}</div>`}
+      <div class="meta">
+        <div class="nm">${esc(it.name)}</div>
+        <div class="sz">${fmtSize(it.size)}${it.existing?'':' · 待保存'}</div>
+      </div>
+      <button class="x" onclick="removeAtt('${side}',${i})" title="移除">×</button>
+    </div>`).join('');
+  // 图片缩略图
+  for(let i=0;i<items.length;i++){
+    const it=items[i];
+    if(it.kind!=='image') continue;
+    const img=box.querySelector(`img[data-i="${i}"]`);
+    if(!img) continue;
+    let url=null;
+    if(it.blob) url=URL.createObjectURL(it.blob);
+    else if(it.id){ const b=await DB.getFile(it.id); if(b) url=URL.createObjectURL(b); }
+    if(url){ img.src=url; setTimeout(()=>URL.revokeObjectURL(url),60000); }
   }
-  document.querySelectorAll('#'+field+'Seg button').forEach(b=>b.classList.remove('on'));
-  event.target.classList.add('on');
-  refreshType(field);
 }
-function refreshType(field){
-  const type = field==='q'?editState.qType:editState.aType;
-  const data = field==='q'?editState.qData:editState.aData;
-  const box = $('#'+field+'Area');
-  if(type==='text'){
-    box.innerHTML = `<textarea class="textarea" id="${field}Input" placeholder="${field==='q'?'输入或粘贴题目内容':'输入或粘贴正解内容'}"></textarea>`;
-    if(data && !data.startsWith('data:')) $('#'+field+'Input').value = data;
-  }else{
-    if(data && data.startsWith('data:')){
-      box.innerHTML = `<div class="preview-wrap"><img class="preview-img" src="${data}"><button class="rm" onclick="clearImg('${field}')">×</button></div>`;
-    }else{
-      box.innerHTML = `<label class="img-pick" for="file_${field}">
-        📷 点击选择图片
-        <input type="file" accept="image/*" id="file_${field}" onchange="onPickImg('${field}',this.files[0])">
-      </label>`;
+function removeAtt(side,i){
+  const it=editState.att[side][i];
+  if(it && it.id) editState.removedIds.push(it.id);
+  editState.att[side].splice(i,1);
+  drawAtts(side);
+}
+
+/* ---------- 文件选择 ---------- */
+let pickSide='q';
+function pickFiles(side){
+  pickSide=side;
+  $('#filePicker').value='';
+  $('#filePicker').click();
+}
+$('#filePicker').addEventListener('change', async e=>{
+  const files=[...e.target.files];
+  if(!files.length) return;
+  await addFiles(pickSide, files);
+});
+async function addFiles(side, fileList){
+  let n=0;
+  for(const f of fileList){
+    const kind=fileKind(f.name,f.type);
+    let blob=f;
+    if(kind==='image'){
+      try{ blob = await compressImage(f); }catch(_){ blob=f; }
     }
+    if(blob.size > 50*1024*1024){
+      if(!confirm(`「${f.name}」较大（${fmtSize(blob.size)}），仍要添加吗？\n文件保存在本浏览器中，占用本机存储空间。`)) continue;
+    }
+    editState.att[side].push({name:f.name, type:f.type||'application/octet-stream', size:blob.size, kind, blob});
+    n++;
   }
+  if(n){ drawAtts(side); toast(`已添加 ${n} 个文件，记得点保存`); }
 }
-function clearImg(field){
-  if(field==='q') editState.qData=''; else editState.aData='';
-  refreshType(field);
+
+/* ---------- 摄像头 ---------- */
+let camSide='q', stream=null, camFallbackMode=false;
+function openCamera(side){
+  camSide=side; camFallbackMode=false;
+  $('#camMask').classList.add('show');
+  startCamera();
 }
-async function onPickImg(field,file){
-  if(!file) return;
-  toast('处理中...');
+async function startCamera(){
+  const v=$('#video');
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    camFallback(); return;
+  }
   try{
-    const b64 = await compressImage(file);
-    if(field==='q') editState.qData=b64; else editState.aData=b64;
-    refreshType(field);
-    toast('已加载图片');
-  }catch(e){ toast('图片读取失败'); }
+    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}, audio:false});
+    v.srcObject=stream;
+  }catch(err){
+    console.warn('camera error',err);
+    toast('无法调用摄像头，请改用文件选择');
+    camFallback();
+  }
 }
-function submitEntry(){
-  // 提取文本
-  if(editState.qType==='text'){
-    const v = $('#qInput').value.trim();
-    if(!v){ toast('请填写错题内容'); return; }
-    editState.qData = v;
-  }else{
-    if(!editState.qData){ toast('请上传错题图片'); return; }
+function camFallback(){
+  closeCamera();
+  pickSide=camSide;
+  $('#camPicker').value='';
+  $('#camPicker').click();
+}
+$('#camPicker').addEventListener('change', async e=>{
+  const f=e.target.files[0];
+  if(f) await addFiles(camSide,[f]);
+});
+function closeCamera(){
+  if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
+  $('#video').srcObject=null;
+  $('#camMask').classList.remove('show');
+}
+async function snap(){
+  const v=$('#video');
+  if(!v.videoWidth){ toast('摄像头未就绪'); return; }
+  const cv=document.createElement('canvas');
+  cv.width=v.videoWidth; cv.height=v.videoHeight;
+  cv.getContext('2d').drawImage(v,0,0);
+  const blob = await new Promise(r=>cv.toBlob(b=>r(b),'image/jpeg',0.85));
+  closeCamera();
+  if(blob){
+    editState.att[camSide].push({
+      name:'照片_'+nowName()+'.jpg', type:'image/jpeg', size:blob.size, kind:'image', blob
+    });
+    drawAtts(camSide);
+    toast('已拍照，记得点保存');
   }
-  if(editState.aType==='text'){
-    const v = $('#aInput').value.trim();
-    if(!v){ toast('请填写正解内容'); return; }
-    editState.aData = v;
-  }else{
-    if(!editState.aData){ toast('请上传正解图片'); return; }
+}
+$('#camMask').addEventListener('click',e=>{ if(e.target.id==='camMask') closeCamera(); });
+
+/* ---------- 提交错题 ---------- */
+async function submitEntry(){
+  if(!editState){ return; }
+  const qText=$('#qText').value.trim();
+  const aText=$('#aText').value.trim();
+  const qAtts=editState.att.q, aAtts=editState.att.a;
+  if(!qText && !qAtts.length){ toast('错题需填写文字或添加文件'); return; }
+  if(!aText && !aAtts.length){ toast('正解需填写文字或添加文件'); return; }
+
+  // 新附件写入 IDB
+  async function resolve(items){
+    const out=[];
+    for(const it of items){
+      if(it.id && it.existing && !it.blob){ out.push({id:it.id,name:it.name,type:it.type,size:it.size,kind:it.kind}); continue; }
+      let blob=it.blob;
+      const id=it.id||uid();
+      if(blob) await DB.putFile(id, blob);
+      out.push({id,name:it.name,type:it.type,size:it.size,kind:it.kind});
+    }
+    return out;
   }
-  const analysis = $('#analysis').value.trim();
-  const date = $('#date').value || today();
-  const payload = {
-    qType:editState.qType, question:editState.qData,
-    aType:editState.aType, answer:editState.aData,
-    analysis, date
+  const qFiles=await resolve(qAtts);
+  const aFiles=await resolve(aAtts);
+  // 删除被移除的旧文件
+  if(editState.removedIds.length) await DB.delFiles(editState.removedIds).catch(()=>{});
+
+  const payload={
+    date:$('#date').value||today(),
+    analysis:$('#analysis').value.trim(),
+    q:{text:qText, files:qFiles},
+    a:{text:aText, files:aFiles}
   };
   if(editState.id){
-    DB.updEntry(curCat, editState.id, payload);
+    const arr=S.entries[curCat];
+    const i=arr.findIndex(x=>x.id===editState.id);
+    if(i>=0){ payload.id=editState.id; arr[i]=payload; }
     toast('已保存');
   }else{
-    DB.addEntry(curCat, {id:uid(), ...payload});
+    payload.id=uid('e');
+    (S.entries[curCat]=S.entries[curCat]||[]).unshift(payload);
     toast('已添加');
   }
+  await save();
   closeModal();
   render();
 }
-function delEntry(eid){
-  if(!confirm('确定删除这道错题？')) return;
-  DB.delEntry(curCat, eid);
-  toast('已删除');
-  render();
+async function delEntry(eid){
+  if(!confirm('确定删除这道错题？（含其所有附件）')) return;
+  const e=(S.entries[curCat]||[]).find(x=>x.id===eid);
+  const fids=[];
+  if(e){ ['q','a'].forEach(s=>(e[s].files||[]).forEach(f=>fids.push(f.id))); }
+  await DB.delFiles(fids).catch(()=>{});
+  S.entries[curCat]=(S.entries[curCat]||[]).filter(x=>x.id!==eid);
+  await save(); toast('已删除'); render();
 }
 
-/* ======================= 图片预览 ======================= */
-function showImg(src){
-  $('#lightboxImg').src = src;
-  $('#lightbox').classList.add('show');
-}
+/* ======================= 图片大图预览 ======================= */
+function showImg(src){ $('#lightboxImg').src=src; $('#lightbox').classList.add('show'); }
 $('#lightbox').addEventListener('click',()=>$('#lightbox').classList.remove('show'));
 
-/* ======================= 导入导出 ======================= */
-function download(name, content){
-  const blob = new Blob([content], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = name;
-  a.click();
-  URL.revokeObjectURL(url);
+/* ======================= 导入 / 导出 ======================= */
+function download(name,content){
+  const blob=new Blob([content],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),5000);
 }
-function exportAll(){
-  const d = DB.load();
-  download(`错题本_全部_${today()}.json`, JSON.stringify(d,null,2));
+async function buildExport(cidOnly){
+  const cats = cidOnly ? S.categories.filter(c=>c.id===cidOnly) : S.categories;
+  const entries={};
+  const files={};
+  for(const c of cats){
+    entries[c.id]=S.entries[c.id]||[];
+    for(const e of entries[c.id]){
+      for(const s of ['q','a']) for(const f of (e[s].files||[])){
+        if(!files[f.id]){
+          const blob=await DB.getFile(f.id);
+          if(blob) files[f.id]={name:f.name,type:f.type,size:f.size,kind:f.kind,data:await blobToDataURL(blob)};
+        }
+      }
+    }
+  }
+  return {version:2, exportedAt:new Date().toISOString(), categories:cats, entries, files};
+}
+async function exportAll(){
+  toast('正在打包（含文件可能较慢）…');
+  const d=await buildExport(null);
+  download(`错题本_全部_${today()}.json`, JSON.stringify(d));
   toast('已导出');
 }
-function exportCat(cid){
-  const cat = DB.cats.find(c=>c.id===cid);
-  const d = {categories:[cat], entries:{[cid]:DB.entries(cid)}};
-  download(`错题本_${cat.name}_${today()}.json`, JSON.stringify(d,null,2));
+async function exportCat(cid){
+  toast('正在打包…');
+  const d=await buildExport(cid);
+  const cat=S.categories.find(c=>c.id===cid);
+  download(`错题本_${cat.name}_${today()}.json`, JSON.stringify(d));
   toast('已导出');
 }
-function importData(file){
-  const r = new FileReader();
-  r.onload = ()=>{
-    try{
-      const data = JSON.parse(r.result);
-      if(!data.categories||!data.entries) throw 0;
-      const cur = DB.load();
-      // 合并：以 id 去重
-      const existIds = new Set(cur.categories.map(c=>c.id));
-      data.categories.forEach(c=>{ if(!existIds.has(c.id)) cur.categories.push(c); });
-      data.entries && Object.keys(data.entries).forEach(cid=>{
-        if(!cur.entries[cid]) cur.entries[cid]=[];
-        const exist = new Set(cur.entries[cid].map(e=>e.id));
-        (data.entries[cid]||[]).forEach(e=>{ if(!exist.has(e.id)) cur.entries[cid].push(e); });
-      });
-      DB.save(cur);
-      toast('导入成功');
-      render();
-    }catch(e){ toast('文件格式不正确'); }
-  };
-  r.readAsText(file);
+async function importData(file){
+  if(!file) return;
+  try{
+    const data=JSON.parse(await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsText(file);}));
+    if(!data.categories||!data.entries){ throw 0; }
+    let nf=0, ne=0;
+    for(const c of data.categories){
+      if(!S.categories.some(x=>x.id===c.id)) S.categories.push(c);
+    }
+    for(const cid of Object.keys(data.entries)){
+      if(!S.entries[cid]) S.entries[cid]=[];
+      const exist=new Set(S.entries[cid].map(e=>e.id));
+      for(const e of data.entries[cid]){
+        if(!exist.has(e.id)){ S.entries[cid].push(e); ne++; }
+        for(const s of ['q','a']) for(const f of ((e[s]&&e[s].files)||[])){
+          const fd=data.files&&data.files[f.id];
+          if(fd && fd.data){
+            const blob=await dataURLtoBlob(fd.data);
+            if(blob){
+              const exist2=await DB.getFile(f.id);
+              if(!exist2){ await DB.putFile(f.id,blob); nf++; }
+            }
+          }
+        }
+      }
+    }
+    await save();
+    toast(`导入成功：${ne} 道错题，${nf} 个文件`);
+    render();
+  }catch(e){ toast('文件格式不正确'); }
 }
 
-/* ======================= 初始化 ======================= */
-render();
-// 快捷键：ESC 关闭
-document.addEventListener('keydown', e=>{
+/* ======================= 启动 ======================= */
+(async function init(){
+  try{
+    await DB.init();
+    S = await DB.getState();
+    await migrate();
+    await save();
+    await render();
+  }catch(err){
+    console.error(err);
+    document.getElementById('view').innerHTML =
+      `<div class="empty"><div class="big">⚠️</div>
+       <div style="color:var(--ink);font-size:16px;margin-bottom:6px">浏览器存储初始化失败</div>
+       <div>请使用最新版 Chrome/Edge/Safari，并在非无痕模式下打开。</div></div>`;
+  }
+})();
+
+document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
-    if($('#lightbox').classList.contains('show')) $('#lightbox').classList.remove('show');
+    if($('#camMask').classList.contains('show')) closeCamera();
+    else if($('#lightbox').classList.contains('show')) $('#lightbox').classList.remove('show');
     else if($('#mask').classList.contains('show')) closeModal();
   }
 });
